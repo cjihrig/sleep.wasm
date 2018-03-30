@@ -1,0 +1,35 @@
+{
+  "name": "sleep.wasm",
+  "version": "0.1.0",
+  "description": "sleep in WebAssembly",
+  "author": "Colin J. Ihrig <cjihrig@gmail.com> (http://www.cjihrig.com/)",
+  "main": "lib/index.js",
+  "homepage": "https://github.com/cjihrig/sleep.wasm",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cjihrig/sleep.wasm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cjihrig/sleep.wasm/issues"
+  },
+  "license": "MIT",
+  "scripts": {
+    "compile": "docker run --rm -v $(pwd):/src trzeci/emscripten emcc -O3 -Os -s WASM=1 -s BINARYEN_ASYNC_COMPILATION=0 --bind src/sleep.cc -o lib/sleep.js",
+    "lint": "belly-button -f -I 'node_modules/**' -I lib/sleep.js",
+    "pretest": "npm run lint",
+    "test": "lab -v -a code -t 100 --coverage-exclude lib/sleep.js"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "devDependencies": {
+    "belly-button": "4.x.x",
+    "code": "5.x.x",
+    "lab": "15.x.x"
+  },
+  "keywords": [
+    "wasm",
+    "WebAssembly",
+    "sleep"
+  ]
+}
